@@ -1,0 +1,20 @@
+{
+  "name": "bookish.local",
+  "version": "0.0.1",
+  "homepage": "https://github.com/ltarasiewicz/scotchbox-ansible",
+  "authors": [
+    "ltarasiewicz <lukasz.tarasiewicz@polcode.net>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "web/assets/vendor/",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap-sass": "~3.3.5"
+  }
+}

@@ -1,0 +1,8 @@
+air_bookish:
+    resource: "@AirBookishBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+app:
+    resource: "@AppBundle/Controller/"
+    type:     annotation

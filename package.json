@@ -1,0 +1,11 @@
+{
+  "name": "bookish.local",
+  "version": "0.0.1",
+  "description": "Symfony Standard Edition ========================",
+  "license": "BSD-2-Clause",
+
+  "devDependencies": {
+    "gulp-sass": "~2.0.1",
+    "gulp": "~3.9.0"
+  }
+}
