@@ -5,6 +5,7 @@ namespace Air\BookishBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Symfony\Component\Security\Acl\Exception\Exception;
 
 class DefaultController extends Controller
 {
@@ -14,12 +15,13 @@ class DefaultController extends Controller
      */
     public function indexAction()
     {
-        $name = 'lukasz';
+        $bestSellerLists = $this->get('nyt_api_handler')->getBestSellersOverview('2014-01-01');
 
-        $a = [1, 2, 3, 4, 5];
-
-        array_pop($a);
-
-        return array('name' => $name);
+        try {
+            $object = $this->get('api_response_mapper')->mapResponse($bestSellerLists);
+        } catch (\Exception $e) {
+            throw new Exception('Mapping went wrong' . $e->getMessage());
+        }
+        return array('lukasz' => 'lukasz');
     }
 }
