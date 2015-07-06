@@ -22,7 +22,8 @@ class BestsellerListType extends AbstractType
             ->add('listImage', 'text')
             ->add('books', 'entity', array(
                 'class' => 'Air\BookishBundle\Entity\Book',
-                'property' => 'title'
+                'property' => 'title',
+                'multiple' => true,
             ));
     }
 

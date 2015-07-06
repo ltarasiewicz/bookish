@@ -22,6 +22,7 @@ class DefaultController extends Controller
         } catch (\Exception $e) {
             throw new Exception('Mapping went wrong' . $e->getMessage());
         }
+        var_dump($object);
         return array('lukasz' => 'lukasz');
     }
 }
