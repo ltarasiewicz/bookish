@@ -1,9 +1,29 @@
 # Learn more about services, parameters and containers at
 # http://symfony.com/doc/current/book/service_container.html
 parameters:
-#    parameter_name: value
+    nyt_api_key: 819a3d9fe5281586fff311c30859e676:16:71796924
+    nyt_api_class: Air\BookishBundle\Lib\NytApiHandler
 
 services:
-#    service_name:
-#        class: AppBundle\Directory\ClassName
-#        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]
+    guzzle_client:
+        class: %guzzle.client.class%
+        arguments: ['http://api.nytimes.com']
+
+    nyt_api_handler:
+        class: %nyt_api_class%
+        arguments: ['%nyt_api_key%', '@guzzle_client']
+
+    bestseller_list_form_type:
+        class: Air\BookishBundle\Form\Type\BestsellerListType
+        name:
+            - { name: form.type, alias: bestseller_list_form }
+
+    bestseller_list_form:
+        factory_service: form.factory
+        factory_method: create
+        class: Symfony\Component\Form\Form
+        arguments: [@bestseller_list_form_type]
+
+    api_response_mapper:
+        class: Air\BookishBundle\Lib\ApiResponseMapper
+        arguments: [@bestseller_list_form]
