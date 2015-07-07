@@ -22,23 +22,27 @@ class NytApiHandler
         $request = $this->guzzleClient->get('/svc/books/v2/lists/overview.json?published_date=' . $date . '&api-key=' . $this->getNytApiKey());
         $response = $request->send();
         $responseArray  = $response->json();
-        $responseArray  = $this->convertKeysToCamelCase($responseArray);
-        var_dump($responseArray);
-        return $responseArray;
+        return $this->convertKeysToCamelCase($responseArray);
+
     }
 
     private function convertKeysToCamelCase($apiResponseArray)
     {
-        array_walk_recursive($apiResponseArray, 'self::convertKeys');
+        $arr = [];
+        foreach ($apiResponseArray as $key => $value) {
+            if (preg_match('/_/', $key)) {
+                $key = preg_replace_callback('/_([^_]*)/', function($matches) {
+                    return ucfirst($matches[1]);
+                }, $key);
+            }
+
+            if (is_array($value))
+                $value = $this->convertKeysToCamelCase($value);
+
+            $arr[$key] = $value;
+        }
+        return $arr;
     }
 
-    private static function convertKeys(&$item, &$key)
-    {
-        if (preg_match('/_/', $key)) {
-            echo $key;
-            $key = str_replace('_', '',  $key);
-            $key = lcfirst($key);
-        }
-    }
 
 }
