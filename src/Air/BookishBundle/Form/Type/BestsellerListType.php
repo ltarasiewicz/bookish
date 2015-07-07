@@ -30,7 +30,9 @@ class BestsellerListType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Air\BookishBundle\Entity\BestsellerList'
+            'data_class' => 'Air\BookishBundle\Entity\BestsellerList',
+            'allow_extra_fields' => true,
+            'by_reference' => false
         ));
     }
 }
