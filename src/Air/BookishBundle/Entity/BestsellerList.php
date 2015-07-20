@@ -18,6 +18,11 @@ class BestsellerList
     private $id;
 
     /**
+     * @ORM\Column(type="integer")
+     */
+    private $listId;
+
+    /**
      * @ORM\Column(type="string", length=120)
      */
     private $listName;
@@ -38,8 +43,11 @@ class BestsellerList
     private $listImage;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Book", inversedBy="lists")
-     * @ORM\JoinTable(name="books_lists")
+     * @ORM\ManyToMany(targetEntity="Book")
+     * @ORM\JoinTable(name="lists_books",
+     *      joinColumns={@ORM\JoinColumn(name="list_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="book_id", referencedColumnName="id", unique=true)}
+     *      )
      **/
     private $books;
     /**
@@ -58,6 +66,29 @@ class BestsellerList
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * Set listId
+     *
+     * @param string $listId
+     * @return BestSellerList
+     */
+    public function setListId($listId)
+    {
+        $this->listId = $listId;
+
+        return $this;
+    }
+
+    /**
+     * Get listId
+     *
+     * @return string
+     */
+    public function getListId()
+    {
+        return $this->listId;
     }
 
     /**

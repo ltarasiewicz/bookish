@@ -10,7 +10,7 @@ class BestsellerListType extends AbstractType
 {
     public function getName()
     {
-        return 'bestseller_list';
+        return 'bestseller_type';
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -32,7 +32,8 @@ class BestsellerListType extends AbstractType
         $resolver->setDefaults(array(
             'data_class' => 'Air\BookishBundle\Entity\BestsellerList',
             'allow_extra_fields' => true,
-            'by_reference' => false
+            'by_reference' => false,
+            'csrf_protection' => false,
         ));
     }
 }

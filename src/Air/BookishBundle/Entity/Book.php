@@ -82,17 +82,6 @@ class Book
      */
     private $updatedDate;
 
-    /**
-     * @ORM\ManyToMany(targetEntity="BestSellerList", mappedBy="books")
-     */
-    private $lists;
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->lists = new \Doctrine\Common\Collections\ArrayCollection();
-    }
 
     /**
      * Get id
@@ -403,36 +392,4 @@ class Book
         return $this->updatedDate;
     }
 
-    /**
-     * Add lists
-     *
-     * @param \Air\BookishBundle\Entity\BestSellerList $lists
-     * @return Book
-     */
-    public function addList(\Air\BookishBundle\Entity\BestSellerList $lists)
-    {
-        $this->lists[] = $lists;
-
-        return $this;
-    }
-
-    /**
-     * Remove lists
-     *
-     * @param \Air\BookishBundle\Entity\BestSellerList $lists
-     */
-    public function removeList(\Air\BookishBundle\Entity\BestSellerList $lists)
-    {
-        $this->lists->removeElement($lists);
-    }
-
-    /**
-     * Get lists
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getLists()
-    {
-        return $this->lists;
-    }
 }

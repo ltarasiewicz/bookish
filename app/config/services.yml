@@ -16,7 +16,7 @@ services:
     bestseller_list_form_type:
         class: Air\BookishBundle\Form\Type\BestsellerListType
         name:
-            - { name: form.type, alias: bestseller_list_form }
+            - { name: form.type, alias: bestseller_type }
 
     bestseller_list_form:
         factory_service: form.factory
@@ -24,6 +24,17 @@ services:
         class: Symfony\Component\Form\Form
         arguments: [@bestseller_list_form_type]
 
+    book_form_type:
+        class: Air\BookishBundle\Form\Type\BookType
+        name:
+            - { name: form.type, alias: book_type }
+
+    book_form:
+        factory_service: form.factory
+        factory_method: create
+        class: Symfony\Component\Form\Form
+        arguments: [@book_form_type]
+
     api_response_mapper:
         class: Air\BookishBundle\Lib\ApiResponseMapper
-        arguments: [@bestseller_list_form]
+        arguments: [@bestseller_list_form, @book_form]

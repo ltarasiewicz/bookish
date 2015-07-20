@@ -20,8 +20,9 @@ class DefaultController extends Controller
         try {
             $object = $this->get('api_response_mapper')->mapResponse($bestSellerLists);
         } catch (\Exception $e) {
-            throw new Exception('Mapping went wrong' . $e->getMessage());
+            throw new Exception('Mapping went wrong: ' . $e->getMessage());
         }
+
         return array('lukasz' => 'lukasz');
     }
 }

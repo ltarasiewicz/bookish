@@ -1,6 +1,12 @@
 <?php
 namespace Air\BookishBundle\Lib;
 
+/**
+ * Extracts responses from the API
+ *
+ * Class NytApiHandler
+ * @package Air\BookishBundle\Lib
+ */
 class NytApiHandler
 {
     private $nytApiKey;
@@ -19,30 +25,20 @@ class NytApiHandler
 
     public function getBestSellersOverview($date = '2014-01-01')
     {
-        $request = $this->guzzleClient->get('/svc/books/v2/lists/overview.json?published_date=' . $date . '&api-key=' . $this->getNytApiKey());
+        $request = $this->guzzleClient->get('/svc/books/v2/lists/overview.json');
+        $query = $request->getQuery();
+
+        // Build query string
+        $query->add('published_date', $date)
+                ->add('api-key', $this->getNytApiKey());
+
         $response = $request->send();
+
+        // Convert json to array
         $responseArray  = $response->json();
-        return $this->convertKeysToCamelCase($responseArray);
+
+        return $responseArray;
 
     }
-
-    private function convertKeysToCamelCase($apiResponseArray)
-    {
-        $arr = [];
-        foreach ($apiResponseArray as $key => $value) {
-            if (preg_match('/_/', $key)) {
-                $key = preg_replace_callback('/_([^_]*)/', function($matches) {
-                    return ucfirst($matches[1]);
-                }, $key);
-            }
-
-            if (is_array($value))
-                $value = $this->convertKeysToCamelCase($value);
-
-            $arr[$key] = $value;
-        }
-        return $arr;
-    }
-
 
 }
