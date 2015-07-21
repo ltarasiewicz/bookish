@@ -12,13 +12,15 @@ use Air\BookishBundle\Entity\BestsellerList;
  */
 class ApiResponseMapper
 {
-    private $bestSellerListForm;
-    private $bookForm;
+    private $formFactory;
+    private $bestSellerListFormType;
+    private $bookFormType;
 
-    public function __construct($bestSellerListForm, $bookForm)
+    public function __construct($formFactory, $bestSellerListFormType, $bookFormType)
     {
-        $this->bestSellerListForm = $bestSellerListForm;
-        $this->bookForm = $bookForm;
+        $this->formFactory = $formFactory;
+        $this->bestSellerListFormType = $bestSellerListFormType;
+        $this->bookFormType = $bookFormType;
     }
 
     public function mapResponse($response)
@@ -30,27 +32,20 @@ class ApiResponseMapper
         $i = 0;
         $x = 0;
         foreach ($bestellerLists[0] as $bestsellerList) {
-            $List[$i] = new BestsellerList();
+            $lists[$i] = new BestsellerList();
+
             foreach ($bestsellerList['books'] as $book) {
-                $Book[$x] = new Book();
-                $bookForm = clone($this->bookForm);
-                $bookForm->setData($Book[$x]);
+                $book[$x] = new Book();
+                $bookForm = $this->formFactory->create($this->bookFormType);
+                $bookForm->setData($book[$x]);
                 $bookForm->submit($book);
-                $List[$i]->addBook($Book[$x]);
-                //unset($Book);
-                unset($bookForm);
+                $lists[$i]->addBook($book[$x]);
                 $x = $x + 1;
             }
             $i = $i+ 1;
         }
 
-        return true;
-
-//        $Book = new Book();
-//        $form = $this->bookForm;
-//        $form->setData($Book);
-//        $form->submit($response['results']['lists'][0]['books'][0]);
-//        return $Book;
+        return $lists;
 
     }
 
