@@ -7,7 +7,7 @@ use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 
-class BestsellerListAdmin extends Admin
+class BookAdmin extends Admin
 {
     /**
      * Fields to be shown on create/edit forms
@@ -16,8 +16,7 @@ class BestsellerListAdmin extends Admin
     {
         $options = [];
         $formMapper
-                ->add('displayName', 'text', array('label' => 'Name of the list'))
-                ->add('books', 'sonata_type_collection', $options);
+                ->add('title', 'text', array('label' => 'Name of the list'));
 
     }
 
@@ -27,7 +26,7 @@ class BestsellerListAdmin extends Admin
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
         $datagridMapper
-                ->add('displayName');
+                ->add('title');
     }
 
     /**
@@ -36,9 +35,8 @@ class BestsellerListAdmin extends Admin
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
-                ->add('listId')
-                ->addIdentifier('listName')
-                ->add('updated');
+                ->addIdentifier('title');
+
 
     }
 }

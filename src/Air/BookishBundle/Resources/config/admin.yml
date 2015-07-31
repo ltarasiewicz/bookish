@@ -9,3 +9,13 @@ services:
             - ~
         calls:
             - [ setTranslationDomain, [AirBookishBundle] ]
+    sonata.admin.book:
+        class: Air\BookishBundle\Admin\BookAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Books", label: "Book" }
+        arguments:
+            - ~
+            - Air\BookishBundle\Entity\Book
+            - ~
+        calls:
+            - [ setTranslationDomain, [AirBookishBundle] ]
