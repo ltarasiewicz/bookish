@@ -7,6 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity
  * @ORM\Table(name="bestseller_lists")
+ * @ORM\HasLifecycleCallbacks()
  */
 class BestsellerList
 {
@@ -43,7 +44,7 @@ class BestsellerList
     private $listImage;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Book")
+     * @ORM\ManyToMany(targetEntity="Book", cascade={"persist"})
      * @ORM\JoinTable(name="lists_books",
      *      joinColumns={@ORM\JoinColumn(name="list_id", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="book_id", referencedColumnName="id", unique=true)}

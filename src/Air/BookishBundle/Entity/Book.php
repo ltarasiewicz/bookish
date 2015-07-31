@@ -7,6 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity
  * @ORM\Table(name="books")
+ * @ORM\HasLifecycleCallbacks()
  */
 class Book
 {
@@ -18,7 +19,7 @@ class Book
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=120)
+     * @ORM\Column(type="string", length=120, nullable=true)
      */
     private $ageGroup;
 
@@ -28,12 +29,12 @@ class Book
     private $author;
 
     /**
-     * @ORM\Column(type="string", length=120)
+     * @ORM\Column(type="string", length=120, nullable=true)
      */
     private $contributor;
 
     /**
-     * @ORM\Column(type="text", length=120)
+     * @ORM\Column(type="text", length=120, nullable=true)
      */
     private $contributorNote;
 
@@ -78,7 +79,7 @@ class Book
     private $title;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="datetime", nullable=true)
      */
     private $updatedDate;
 
@@ -186,14 +187,13 @@ class Book
     }
 
     /**
-     * Set createdDate
-     *
-     * @param \DateTime $createdDate
-     * @return Book
+     * @ORM\PrePersist
      */
-    public function setCreatedDate($createdDate)
+    public function setCreatedDate()
     {
-        $this->createdDate = $createdDate;
+        if (null === $this->createdDate) {
+            $this->createdDate = new \DateTime();
+        }
 
         return $this;
     }

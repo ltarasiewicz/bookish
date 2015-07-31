@@ -1,0 +1,11 @@
+services:
+    sonata.admin.bestseller_list:
+        class: Air\BookishBundle\Admin\BestsellerListAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Lists", label: "List" }
+        arguments:
+            - ~
+            - Air\BookishBundle\Entity\BestsellerList
+            - ~
+        calls:
+            - [ setTranslationDomain, [AirBookishBundle] ]

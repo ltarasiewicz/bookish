@@ -33,13 +33,17 @@ class ApiResponseMapper
         $x = 0;
         foreach ($bestellerLists[0] as $bestsellerList) {
             $lists[$i] = new BestsellerList();
-
+            $lists[$i]->setListId($bestsellerList['listId']);
+            $lists[$i]->setListName($bestsellerList['listName']);
+            $lists[$i]->setDisplayName($bestsellerList['displayName']);
+            $lists[$i]->setUpdated($bestsellerList['updated']);
+            $lists[$i]->setListImage($bestsellerList['listImage']);
             foreach ($bestsellerList['books'] as $book) {
-                $book[$x] = new Book();
+                $books[$x] = new Book();
                 $bookForm = $this->formFactory->create($this->bookFormType);
-                $bookForm->setData($book[$x]);
+                $bookForm->setData($books[$x]);
                 $bookForm->submit($book);
-                $lists[$i]->addBook($book[$x]);
+                $lists[$i]->addBook($books[$x]);
                 $x = $x + 1;
             }
             $i = $i+ 1;

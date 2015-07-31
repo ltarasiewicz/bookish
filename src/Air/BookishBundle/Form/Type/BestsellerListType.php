@@ -20,10 +20,10 @@ class BestsellerListType extends AbstractType
             ->add('displayName', 'text')
             ->add('updated', 'text')
             ->add('listImage', 'text')
-            ->add('books', 'entity', array(
-                'class' => 'Air\BookishBundle\Entity\Book',
-                'property' => 'title',
-                'multiple' => true,
+            ->add('books', 'collection', array(
+                'type' => new BookType(),
+                'allow_add' => true,
+                'by_reference' => false,
             ));
     }
 
@@ -31,9 +31,6 @@ class BestsellerListType extends AbstractType
     {
         $resolver->setDefaults(array(
             'data_class' => 'Air\BookishBundle\Entity\BestsellerList',
-            'allow_extra_fields' => true,
-            'by_reference' => false,
-            'csrf_protection' => false,
         ));
     }
 }

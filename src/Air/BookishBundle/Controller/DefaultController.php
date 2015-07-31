@@ -18,12 +18,13 @@ class DefaultController extends Controller
         $bestSellerLists = $this->get('nyt_api_handler')->getBestSellersOverview('2014-01-01');
 
         try {
-            $object = $this->get('api_response_mapper')->mapResponse($bestSellerLists);
+            $lists = $this->get('api_response_mapper')->mapResponse($bestSellerLists);
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($lists[0]);
+            $em->flush();
         } catch (\Exception $e) {
             throw new Exception('Mapping went wrong: ' . $e->getMessage());
         }
-
-        $o = $object;
 
         return array('lukasz' => 'lukasz');
     }
