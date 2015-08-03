@@ -46,6 +46,7 @@ class ApiResponseMapper
                 $lists[$i]->addBook($books[$x]);
                 $x = $x + 1;
             }
+            if ($i === 1) break;
             $i = $i+ 1;
         }
 

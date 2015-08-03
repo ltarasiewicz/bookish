@@ -15,7 +15,7 @@ class DefaultController extends Controller
      */
     public function indexAction()
     {
-        $bestSellerLists = $this->get('nyt_api_handler')->getBestSellersOverview('2014-01-01');
+        $bestSellerLists = $this->get('nyt_api_handler')->getBestSellersOverview('2015-07-01');
 
         try {
             $lists = $this->get('api_response_mapper')->mapResponse($bestSellerLists);
